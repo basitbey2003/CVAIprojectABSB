@@ -1,0 +1,1 @@
+print("Computer Vision & AI project starting")
