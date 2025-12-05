@@ -1,2 +1,2 @@
-# cv-ai-projectABSB
+# CVAIprojectABSB
 Ravensbourne CV and AI Coursework
