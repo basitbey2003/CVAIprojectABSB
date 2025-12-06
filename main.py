@@ -1,6 +1,7 @@
 # main.py
 # FINAL VERSION – CNN for CIFAR-10 (Ravensbourne Computer Vision & AI Coursework)
 # Author: YOUR NAME
+# Author: ABDULBASIT SHITTABEY
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
