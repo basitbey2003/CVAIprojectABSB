@@ -1,10 +1,12 @@
 # main.py
-# Step 4: Load, preprocess, build and TRAIN a simple CNN for CIFAR-10
+# Step 5: Train and evaluate a simple CNN for CIFAR-10
 # Author: YOUR NAME
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.utils import to_categorical
+import numpy as np
+from sklearn.metrics import classification_report, confusion_matrix
 
 print("Loading CIFAR-10 dataset...")
 
@@ -29,6 +31,12 @@ print("x_train shape:", x_train.shape)
 print("y_train_cat shape:", y_train_cat.shape)
 print("x_test shape:", x_test.shape)
 print("y_test_cat shape:", y_test_cat.shape)
+
+# Class names just for nicer output in the report
+class_names = [
+    "airplane", "automobile", "bird", "cat", "deer",
+    "dog", "frog", "horse", "ship", "truck"
+]
 
 # ----- 3. BUILD CNN MODEL -----
 model = models.Sequential([
@@ -63,9 +71,24 @@ print("\nTraining model...")
 history = model.fit(
     x_train,
     y_train_cat,
-    epochs=10,          # you can change this later if training is slow
+    epochs=10,          # reduce to 5 if this feels too slow
     batch_size=64,
     validation_split=0.2
 )
-
 print("\nTraining finished.")
+
+# ----- 5. EVALUATE ON TEST DATA -----
+print("\nEvaluating on test data...")
+test_loss, test_acc = model.evaluate(x_test, y_test_cat, verbose=0)
+print(f"Test accuracy: {test_acc:.4f}, Test loss: {test_loss:.4f}")
+
+# Get predictions for detailed metrics
+y_pred_probs = model.predict(x_test)
+y_pred = np.argmax(y_pred_probs, axis=1)   # predicted class index
+y_true = y_test.flatten()                  # true class index
+
+print("\nClassification Report:")
+print(classification_report(y_true, y_pred, target_names=class_names))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_true, y_pred))
