@@ -1,5 +1,5 @@
 # main.py
-# Step 3: Load, preprocess and build a simple CNN for CIFAR-10
+# Step 4: Load, preprocess, build and TRAIN a simple CNN for CIFAR-10
 # Author: YOUR NAME
 
 import tensorflow as tf
@@ -57,3 +57,15 @@ model.compile(
 
 print("\nModel summary:")
 model.summary()
+
+# ----- 4. TRAIN THE MODEL -----
+print("\nTraining model...")
+history = model.fit(
+    x_train,
+    y_train_cat,
+    epochs=10,          # you can change this later if training is slow
+    batch_size=64,
+    validation_split=0.2
+)
+
+print("\nTraining finished.")
